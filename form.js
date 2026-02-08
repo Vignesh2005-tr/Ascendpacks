@@ -324,7 +324,7 @@ form.addEventListener("submit", function (e) {
     formData.append('file', file, fileName);
 
     // Discord webhook URL
-    const WEBHOOK_URL = "https://discord.com/api/webhooks/1469756792908152883/bYlDZ5hHPPDeN_wdd1HLOCUqSGeXPC-PWNyJHOIv_zEiA99tXEzCMDWRA46Cc24NEdKH";
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1469756792908152883/bYlDZ5hHPPDeN_wdd1HLOCUqSGeXPC-PWNyJHOIv_zEiA99tXEzCMDWRA46Cc24NEdKH discord.com/api/webhooks/1470090123080106156/3AqTyeYpozL26bebIpjkgaFaXXtvl2JI2hMyjx34FzLr7k_vMimCexkmY4h4ClutJZvB";
     fetch(WEBHOOK_URL, {
         method: "POST",
         body: formData
