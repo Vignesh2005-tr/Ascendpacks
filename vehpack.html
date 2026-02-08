@@ -4,66 +4,49 @@
 <meta charset="UTF-8">
 <title>ASCEND Vehicle Packs</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="image/ascend.gif">
 <link rel="stylesheet" href="stlye.css">
+<link rel="icon" href="image/ascend.gif">
 </head>
 
 <body>
 
-<h1 style="text-align:center;">WELCOME TO ASCEND VEHICLE PACKS</h1>
+<h1 style="text-align:center;">ASCEND VEHICLE PACKS</h1>
 
-<div class="ytbox" style="text-align:center;">
-    <img src="image/ascend.gif" width="120">
-    <hr>
+<div style="text-align:center;">
+<img src="image/ascend.gif" width="120">
+<hr>
 </div>
 
-<div class="vehicle-container">
-
-<!-- VEHICLE CARD -->
+<!-- VEHICLE 1 -->
 <div class="vehicle-card">
 <h2>SULTAN</h2>
-<img src="image/sultan.png">
-<ul>
-<li>Class: Sedan</li>
-<li>Price: ₹50</li>
-<li>Top Speed: 200 km/h</li>
-</ul>
+<img src="image/sultan.png" width="200">
+<p>Price: ₹50</p>
 <button onclick="buyVehicle('SULTAN','50')">BUY</button>
 </div>
 
+<!-- VEHICLE 2 -->
 <div class="vehicle-card">
 <h2>NRG</h2>
-<img src="image/nrg.png">
-<ul>
-<li>Class: Bike</li>
-<li>Price: ₹40</li>
-<li>Top Speed: 190 km/h</li>
-</ul>
+<img src="image/nrg.png" width="200">
+<p>Price: ₹40</p>
 <button onclick="buyVehicle('NRG','40')">BUY</button>
 </div>
 
+<!-- VEHICLE 3 -->
 <div class="vehicle-card">
 <h2>BULLET</h2>
-<img src="image/bullet.png">
-<ul>
-<li>Class: Sports</li>
-<li>Price: ₹65</li>
-<li>Top Speed: 230 km/h</li>
-</ul>
+<img src="image/bullet.png" width="200">
+<p>Price: ₹65</p>
 <button onclick="buyVehicle('BULLET','65')">BUY</button>
 </div>
 
+<!-- VEHICLE 4 -->
 <div class="vehicle-card">
 <h2>INFERNUS</h2>
-<img src="image/infernus.png">
-<ul>
-<li>Class: Super</li>
-<li>Price: ₹70</li>
-<li>Top Speed: 240 km/h</li>
-</ul>
+<img src="image/infernus.png" width="200">
+<p>Price: ₹70</p>
 <button onclick="buyVehicle('INFERNUS','70')">BUY</button>
-</div>
-
 </div>
 
 <hr>
@@ -73,11 +56,13 @@
 <a href="https://discord.gg/w44mwak5" target="_blank">💬 Discord</a>
 </div>
 
+<!-- JS -->
 <script>
-function buyVehicle(name, price) {
+function buyVehicle(vehicle, price){
+    // auto open form page
     window.location.href =
     "pages/form.html?vehicle=" +
-    encodeURIComponent(name) +
+    encodeURIComponent(vehicle) +
     "&price=" +
     encodeURIComponent(price);
 }
