@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASCEND Support Packs</title>
+    <link rel="icon" href="image/ascend.gif" type="image/gif">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stlye.css">
+</head>
+
+<body>
+
+<h1 style="text-align:center;">ASCEND SUPPORT PACKS FORM</h1>
+
+<div class="ytbox" style="padding-top:20px; text-align:center;">
+    <img src="image/ascend.gif" alt="Ascend Logo" width="120">
+    <hr>
+</div>
+
+
+<form id="Customer" enctype="multipart/form-data">
+
+    <table border="1" align="center" cellpadding="10">
+        <tr>
+            <th colspan="2">ASCEND SUPPORT PACKS APPLICATION FORM</th>
+        </tr>
+
+        <tr>
+            <td>IC NAME</td>
+            <td><input type="text" name="pname" placeholder="ENTER YOUR NAME" required></td>
+        </tr>
+
+        <tr>
+            <td>GPAY NAME</td>
+            <td><input type="text" name="gpay_name" placeholder="ENTER YOUR GPAY NAME" required></td>
+        </tr>
+
+        <tr>
+            <td>UPLOAD PAYMENT PROOF</td>
+            <td>
+                <input type="file" name="payment_proof" accept="image/*" required>
+            </td>
+        </tr>
+
+        <!-- ✅ NEW: Payment Method -->
+        <tr>
+            <td>PAYMENT METHOD</td>
+            <td>
+                <select id="method" name="method" required>
+                    <option value="">-- Select Method --</option>
+                    <option value="GPAY">GPAY / UPI</option>
+                    <option value="Paytm">Paytm</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>PACKS</td>
+            <td>
+                <select name="PACKS" required>
+                    <option value="">-- Select Pack --</option>
+                    <option value="SUPPORTER-PACK">SUPPORTER PACK</option>
+                    <option value="VEHICLE-PACKS">VEHICLE PACK</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+
+    <!-- PAYMENT SECTION -->
+    <div style="text-align:center; background: linear-gradient(145deg, #111, #1c1c1c); border: 1px solid rgba(0, 247, 255, 0.3); border-radius: 10px; padding: 20px; margin: 20px auto; max-width: 500px;">
+        <h3 style="color: #00f7ff; margin-bottom: 15px;">💳 GPAY PAYMENT</h3>
+
+        <div id="amountDisplay" style="font-size: 1.5rem; color: #ff00ff; margin-bottom: 15px; font-weight: bold;">
+            Amount: ₹0
+        </div>
+
+        <button type="button" onclick="openPaymentModal()"
+            style="padding: 12px 30px; background: linear-gradient(90deg, #00f7ff, #ff00ff); color: #000; border: none; border-radius: 25px; font-weight: bold; cursor: pointer;">
+            💰 Pay with GPAY
+        </button>
+
+        <p style="font-size: 0.9rem; color: #aaa; margin-top: 10px;">
+            UPI: <span style="color: #00f7ff;">gajaraj1628@okhdfcbank</span>
+        </p>
+
+        <label style="color:#fff;">
+            <input type="checkbox" id="paymentConfirm">
+            ✅ I have completed payment
+        </label>
+    </div>
+
+    <!-- PAYMENT MODAL -->
+    <div id="paymentModal"
+         style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:10000; align-items:center; justify-content:center;">
+
+        <div style="background:#1a1a1a; border-radius:15px; padding:30px; max-width:450px; width:90%; border:2px solid #00f7ff;">
+            <h2 style="color:#00f7ff; text-align:center;">🛒 ASCEND PAYMENT</h2>
+
+            <p style="color:#aaa; text-align:center;">Total Amount</p>
+            <h1 id="modalAmount" style="color:#ff00ff; text-align:center;">₹0</h1>
+
+            <div id="qrCode" style="margin:15px auto; background:#fff; padding:10px; border-radius:5px; width:fit-content;"></div>
+
+            <p style="color:#fff; text-align:center;">
+                Pay ₹<span id="modalAmountNum">0</span> via any UPI app
+            </p>
+
+            <button type="button" onclick="initiatePayment()"
+                style="width:100%; padding:12px; background:linear-gradient(90deg,#ffd700,#ff9900); border:none; border-radius:25px; font-weight:bold;">
+                💳 Open UPI Payment
+            </button>
+
+            <button type="button" onclick="closePaymentModal()"
+                style="width:100%; margin-top:10px; padding:10px; background:#333; color:#fff; border-radius:25px;">
+                ✖ Close
+            </button>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- CONFIRMATION -->
+    <div style="text-align:center;">
+        <label>
+            <input type="checkbox" id="agree">
+            I confirm payment is done & I accept ASCEND rules
+        </label>
+        <br><br>
+
+            <input type="submit" id="submitBtn" value="Submit" disabled>
+            <br><br>
+            <div id="successMsg" style="color:#00ff6a; margin-top:10px;"></div>
+            <div id="errorMsg" style="color:#ff4c4c; margin-top:10px;"></div>
+            <div id="cooldownMsg" style="color:orange; margin-top:10px;"></div>
+        <br><br>
+        <input type="reset" value="Clear Form">
+    </div>
+
+</form>
+
+<!-- JS -->
+<script src="form.js"></script>
+
+</body>
+</html>
