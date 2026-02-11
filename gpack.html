@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASCEND Vehicle Packs</title>
+    <link rel="icon" href="image/ascend.gif" type="image/gif">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stlye.css">
+</head>
+
+<body>
+
+<h1>WELCOME TO ASCEND VEHICLE PACKS</h1>
+
+<div class="ytbox">
+    <img src="image/ascend.gif" alt="Ascend Logo">
+    <hr>
+</div>
+
+<h2>Vehicle Packs Information</h2>
+
+<!-- PACK 1 -->
+<div class="vehicle-card">
+    <h1>GANG PACK-1</h1>
+    <img src="image/gang.png" alt="Gang Pack">
+
+    <details>
+        <summary>Details</summary>
+        <p>The premium gang pack.</p>
+        <ul>
+            <li><strong>Vehicle:</strong> Patriot (2x)</li>
+            <li><strong>Top Speed:</strong> 106 mph (170 km/h)</li>
+            <li><strong>Gears:</strong> 5</li>
+            <li><strong>Gang House:</strong> Richman Location</li>
+            <li><strong>2 VIP Numbers:</strong> (Example: 420001)</li>
+            <li><strong>Amount:</strong> $50</li>
+        </ul>
+    </details>
+
+    <center>
+        <div class="BUY">
+            <button onclick="showBuyNotice(); buyVehicle('GANG-PACK-1','50')">BUY</button>
+        </div>
+    </center>
+</div>
+
+<!-- PACK 2 -->
+<div class="vehicle-card">
+    <h1>GANG PACK-2</h1>
+    <img src="image/Patriot.png" alt="Patriot Pack">
+
+    <details>
+        <summary>Details</summary>
+        <p>The standard gang pack.</p>
+        <ul>
+            <li><strong>Vehicle:</strong> Patriot (2x)</li>
+            <li><strong>Top Speed:</strong> 106 mph (170 km/h)</li>
+            <li><strong>Gears:</strong> 5</li>
+            <li><strong>Amount:</strong> $30</li>
+        </ul>
+    </details>
+
+    <center>
+        <div class="BUY">
+            <button onclick="showBuyNotice(); buyVehicle('GANG-PACK-2','30')">BUY</button>
+        </div>
+    </center>
+</div>
+
+
+<hr>
+
+<div class="bottom-social-bar">
+    <a href="INDEX.html" target="_blank" class="social-btn">
+        <img src="image/ascend.gif" alt="Home">
+        <span>Home</span>
+    </a>
+
+    <a href="https://discord.gg/w44mwak5" target="_blank" class="social-btn">
+        <img src="image/discord.png" alt="Discord">
+        <span>Discord</span>
+    </a>
+</div>
+
+<script src="form.js"></script>
+
+<script>
+function buyVehicle(name, price) {
+    window.location.href =
+        "form.html?vehicle=" + encodeURIComponent(name) +
+        "&price=" + encodeURIComponent(price);
+}
+</script>
+
+</body>
+</html>
