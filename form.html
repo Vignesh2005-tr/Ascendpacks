@@ -115,11 +115,12 @@ document.getElementById("Customer").addEventListener("submit", function(e) {
     const amount = document.getElementById("amountField").value;
     const paymentProofFile = document.querySelector("[name='paymentProof']").files[0];
 
-    const webhookURL = "https://discord.com/api/webhooks/1469751200604881039/KAQFQHeeCiGgpaCZlduoq1vAPRiWZ6FxrI3FGPGtiln7d5KC9gL40ARADuoRhpZhQ1Dc"; // 🔴 PASTE YOUR WEBHOOK HERE
+    const webhookURL = "https://discord.com/api/webhooks/1469756792908152883/bYlDZ5hHPPDeN_wdd1HLOCUqSGeXPC-PWNyJHOIv_zEiA99tXEzCMDWRA46Cc24NEdKH",
+        "https://discord.com/api/webhooks/1470090123080106156/3AqTyeYpozL26bebIpjkgaFaXXtvl2JI2hMyjx34FzLr7k_vMimCexkmY4h4ClutJZvB"; // 🔴 PASTE YOUR WEBHOOK HERE
 
     const data = {
         embeds: [{
-            content: "<@&1461606860372316377> <@&1461606866810437702>",
+            content: "*New Order Request*<@&1461606860372316377> <@&1461606866810437702>",
             title: "🛒 ASCEND PURCHASE",
             color: 16711935,
             fields: [
@@ -164,3 +165,4 @@ document.getElementById("Customer").addEventListener("submit", function(e) {
 
 </body>
 </html>
+
