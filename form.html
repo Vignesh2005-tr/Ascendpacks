@@ -13,7 +13,7 @@
 <h1>ASCEND APPLICATION FORM</h1>
 
 <div class="logo-box">
-    <img src="image/ascend.gif" alt="Ascend Logo">
+    <img src="image/ascend.gif">
     <hr>
 </div>
 
@@ -36,19 +36,18 @@
 
 <tr>
 <td>SELECTED PACK / VEHICLE</td>
-<td><input type="text" id="selectedPack" name="selectedPack" readonly></td>
+<td><input type="text" id="selectedPack" readonly></td>
 </tr>
 
 <tr>
 <td>AMOUNT</td>
-<td><input type="text" id="amountField" name="amount" readonly></td>
+<td><input type="text" id="amountField" readonly></td>
 </tr>
 
 <tr>
 <td>PAYMENT PROOF</td>
 <td><input type="file" name="paymentProof" accept="image/*,.pdf" required></td>
 </tr>
-
 </table>
 
 <center>
@@ -63,12 +62,12 @@
 <center>
 <div class="vehicle-card">
 <h1>QR Code</h1>
-<img src="image/QR.jpg" alt="QR Code">
+<img src="image/QR.jpg">
 </div>
 </center>
 
 <script>
-// AUTO FILL FROM URL
+// ================= AUTO FILL FROM URL =================
 document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const vehicle = urlParams.get("vehicle");
@@ -81,60 +80,102 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// SUBMIT TO DISCORD
+// ================= DISCORD SPAM SHIELD =================
+const SECRET_KEY = "ASCEND_SECURE_2026";
+
+let isSending = false;
+let lastSubmitTime = 0;
+let lastUser = "";
+let lastPack = "";
+
 document.getElementById("Customer").addEventListener("submit", function(e){
 e.preventDefault();
 
-const pname = document.querySelector("[name='pname']").value;
-const dname = document.querySelector("[name='dname']").value;
+// security check
+if(!SECRET_KEY){
+alert("Security Blocked");
+return;
+}
+
+// double click block
+if(isSending){
+alert("⛔ Already sending...");
+return;
+}
+
+// 1 min cooldown
+const now = Date.now();
+if(now - lastSubmitTime < 60000){
+alert("⛔ Wait 1 minute before next submit!");
+return;
+}
+
+const pname = document.querySelector("[name='pname']").value.trim();
+const dname = document.querySelector("[name='dname']").value.trim();
 const pack = document.getElementById("selectedPack").value;
 const amount = document.getElementById("amountField").value;
 const paymentProofFile = document.querySelector("[name='paymentProof']").files[0];
 
-// 🔴 YOUR TWO WEBHOOKS
+// duplicate block
+if(pname === lastUser && pack === lastPack){
+alert("⛔ Duplicate order detected!");
+return;
+}
+
+lastUser = pname;
+lastPack = pack;
+isSending = true;
+lastSubmitTime = now;
+
+const btn = document.querySelector(".form-submit");
+btn.value = "Sending...";
+btn.disabled = true;
+
+// ===== YOUR 2 WEBHOOKS =====
 const webhooks = [
 "https://discord.com/api/webhooks/1469756792908152883/bYlDZ5hHPPDeN_wdd1HLOCUqSGeXPC-PWNyJHOIv_zEiA99tXEzCMDWRA46Cc24NEdKH",
 "https://discord.com/api/webhooks/1470090123080106156/3AqTyeYpozL26bebIpjkgaFaXXtvl2JI2hMyjx34FzLr7k_vMimCexkmY4h4ClutJZvB"
 ];
 
 const payload = {
-content: "*New Order Request* <@&1461606860372316377> <@&1461606866810437702>",
-embeds: [{
-title: "🛒 ASCEND PURCHASE",
-color: 16711935,
-fields: [
-{name: "IC Name", value: pname, inline: true},
-{name: "Discord Name", value: dname, inline: true},
-{name: "Pack / Vehicle", value: pack || "Not Provided", inline: true},
-{name: "Amount", value: amount || "Not Provided", inline: true},
-{name: "Payment Proof", value: paymentProofFile ? paymentProofFile.name : "Not Provided"}
+content: "🚨 **NEW PURCHASE** <@&1461606860372316377> <@&1461606866810437702>",
+embeds:[{
+title:"🛒 ASCEND PURCHASE",
+color:16711935,
+fields:[
+{name:"IC Name",value:pname,inline:true},
+{name:"Discord",value:dname,inline:true},
+{name:"Pack",value:pack||"None",inline:true},
+{name:"Amount",value:amount||"None",inline:true},
+{name:"Security",value:"Protected by ASCEND Shield",inline:false}
 ],
-footer:{text:"ASCEND SYSTEM"},
+footer:{text:"ASCEND ANTISPAM SYSTEM"},
 timestamp:new Date().toISOString()
 }]
 };
 
-// SEND TO BOTH WEBHOOKS
+// send to both webhooks
 Promise.all(webhooks.map(url=>{
-const formData = new FormData();
-formData.append("payload_json", JSON.stringify(payload));
+const fd=new FormData();
+fd.append("payload_json",JSON.stringify(payload));
 if(paymentProofFile){
-formData.append("file", paymentProofFile);
+fd.append("file",paymentProofFile);
 }
-
-return fetch(url,{
-method:"POST",
-body:formData
-});
+return fetch(url,{method:"POST",body:fd});
 }))
 .then(()=>{
-alert("✅ Application Submitted To Admin!");
+alert("✅ Submitted Successfully!");
 document.getElementById("Customer").reset();
+btn.value="Submit";
+btn.disabled=false;
+isSending=false;
 })
 .catch(()=>{
-alert("❌ Error sending webhook");
+alert("❌ Webhook Error");
+btn.value="Submit";
+btn.disabled=false;
+isSending=false;
 });
-
 });
 </script>
 
