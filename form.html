@@ -1,81 +1,142 @@
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ASCEND SUPPORT FORM</title>
+<link rel="icon" href="image/ascend.gif" type="image/gif">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="stlye.css">
+</head>
 
-    // Get data from URL
+<body>
+
+<h1>ASCEND APPLICATION FORM</h1>
+
+<div class="logo-box">
+    <img src="image/ascend.gif" alt="Ascend Logo">
+    <hr>
+</div>
+
+<form id="Customer">
+
+<table border="1">
+<tr>
+<th colspan="2">ASCEND PURCHASE FORM</th>
+</tr>
+
+<tr>
+<td>IC NAME</td>
+<td><input type="text" name="pname" placeholder="ENTER YOUR NAME" required></td>
+</tr>
+
+<tr>
+<td>DISCORD NAME</td>
+<td><input type="text" name="dname" placeholder="ENTER YOUR DISCORD NAME" required></td>
+</tr>
+
+<tr>
+<td>SELECTED PACK / VEHICLE</td>
+<td><input type="text" id="selectedPack" name="selectedPack" readonly></td>
+</tr>
+
+<tr>
+<td>AMOUNT</td>
+<td><input type="text" id="amountField" name="amount" readonly></td>
+</tr>
+
+<tr>
+<td>PAYMENT PROOF</td>
+<td><input type="file" name="paymentProof" accept="image/*,.pdf" required></td>
+</tr>
+
+</table>
+
+<center>
+<div class="custom-form">
+<input class="form-submit" type="submit" value="Submit">
+<input class="form-submit" type="reset" value="Clear">
+</div>
+</center>
+
+</form>
+
+<center>
+<div class="vehicle-card">
+<h1>QR Code</h1>
+<img src="image/QR.jpg" alt="QR Code">
+</div>
+</center>
+
+<script>
+// AUTO FILL FROM URL
+document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const vehicle = urlParams.get("vehicle");
     const pack = urlParams.get("pack");
     const price = urlParams.get("price");
 
-    if (vehicle) {
-        document.getElementById("selectedPack").value = vehicle;
-    }
-
-    if (pack) {
-        document.getElementById("selectedPack").value = pack;
-    }
-
-    if (price) {
-        document.getElementById("amountField").value = "₹" + price;
-    }
+    if (vehicle) document.getElementById("selectedPack").value = vehicle;
+    if (pack) document.getElementById("selectedPack").value = pack;
+    if (price) document.getElementById("amountField").value = "₹" + price;
 });
 
 
-// DISCORD WEBHOOK SUBMIT
-document.getElementById("Customer").addEventListener("submit", function(e) {
-    e.preventDefault();
+// SUBMIT TO DISCORD
+document.getElementById("Customer").addEventListener("submit", function(e){
+e.preventDefault();
 
-    const pname = document.querySelector("[name='pname']").value;
-    const dname = document.querySelector("[name='dname']").value;
-    const pack = document.getElementById("selectedPack").value;
-    const amount = document.getElementById("amountField").value;
-    const paymentProofFile = document.querySelector("[name='paymentProof']").files[0];
+const pname = document.querySelector("[name='pname']").value;
+const dname = document.querySelector("[name='dname']").value;
+const pack = document.getElementById("selectedPack").value;
+const amount = document.getElementById("amountField").value;
+const paymentProofFile = document.querySelector("[name='paymentProof']").files[0];
 
-    // 🔴 PUT ONLY ONE WEBHOOK HERE
-    const webhookURL = "https://discord.com/api/webhooks/1469756792908152883/bYlDZ5hHPPDeN_wdd1HLOCUqSGeXPC-PWNyJHOIv_zEiA99tXEzCMDWRA46Cc24NEdKH", 
-        "https://discord.com/api/webhooks/1470090123080106156/3AqTyeYpozL26bebIpjkgaFaXXtvl2JI2hMyjx34FzLr7k_vMimCexkmY4h4ClutJZvB";
+// 🔴 YOUR TWO WEBHOOKS
+const webhooks = [
+"https://discord.com/api/webhooks/1469756792908152883/bYlDZ5hHPPDeN_wdd1HLOCUqSGeXPC-PWNyJHOIv_zEiA99tXEzCMDWRA46Cc24NEdKH",
+"https://discord.com/api/webhooks/1470090123080106156/3AqTyeYpozL26bebIpjkgaFaXXtvl2JI2hMyjx34FzLr7k_vMimCexkmY4h4ClutJZvB"
+];
 
-    const data = {
-        content: "*New Order Request* <@&1461606860372316377> <@&1461606866810437702>",
-        embeds: [{
-            title: "🛒 ASCEND PURCHASE",
-            color: 16711935,
-            fields: [
-                { name: "IC Name", value: pname, inline: true },
-                { name: "Discord Name", value: dname, inline: true },
-                { name: "Pack / Vehicle", value: pack || "Not Provided", inline: true },
-                { name: "Amount", value: amount || "Not Provided", inline: true },
-                { name: "Payment Proof", value: paymentProofFile ? paymentProofFile.name : "Not Provided", inline: false }
-            ],
-            footer: {
-                text: "ASCEND SYSTEM"
-            },
-            timestamp: new Date().toISOString()
-        }]
-    };
+const payload = {
+content: "*New Order Request* <@&1461606860372316377> <@&1461606866810437702>",
+embeds: [{
+title: "🛒 ASCEND PURCHASE",
+color: 16711935,
+fields: [
+{name: "IC Name", value: pname, inline: true},
+{name: "Discord Name", value: dname, inline: true},
+{name: "Pack / Vehicle", value: pack || "Not Provided", inline: true},
+{name: "Amount", value: amount || "Not Provided", inline: true},
+{name: "Payment Proof", value: paymentProofFile ? paymentProofFile.name : "Not Provided"}
+],
+footer:{text:"ASCEND SYSTEM"},
+timestamp:new Date().toISOString()
+}]
+};
 
-    const formData = new FormData();
-    formData.append("payload_json", JSON.stringify(data));
+// SEND TO BOTH WEBHOOKS
+Promise.all(webhooks.map(url=>{
+const formData = new FormData();
+formData.append("payload_json", JSON.stringify(payload));
+if(paymentProofFile){
+formData.append("file", paymentProofFile);
+}
 
-    if (paymentProofFile) {
-        formData.append("file", paymentProofFile);
-    }
+return fetch(url,{
+method:"POST",
+body:formData
+});
+}))
+.then(()=>{
+alert("✅ Application Submitted To Admin!");
+document.getElementById("Customer").reset();
+})
+.catch(()=>{
+alert("❌ Error sending webhook");
+});
 
-    fetch(webhookURL, {
-        method: "POST",
-        body: formData
-    })
-    .then(res => {
-        if (res.ok) {
-            alert("✅ Application Submitted Successfully!");
-            document.getElementById("Customer").reset();
-        } else {
-            alert("❌ Error sending to Discord");
-        }
-    })
-    .catch(err => {
-        console.error(err);
-        alert("⚠ Webhook error");
-    });
 });
 </script>
+
+</body>
+</html>
