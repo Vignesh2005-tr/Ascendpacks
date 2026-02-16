@@ -105,7 +105,6 @@ document.getElementById("Customer").addEventListener("submit", function(e) {
 
     const pname = document.querySelector("[name='pname']").value;
     const dname = document.querySelector("[name='dname']").value;
-    const uid = document.querySelector("[name='uid']").value;
     const pack = document.getElementById("selectedPack").value;
     const amount = document.getElementById("amountField").value;
     const paymentProofFile = document.querySelector("[name='paymentProof']").files[0];
@@ -121,7 +120,6 @@ document.getElementById("Customer").addEventListener("submit", function(e) {
             fields: [
                 { name: "IC Name", value: pname, inline: true },
                 { name: "Discord Name", value: dname, inline: true },
-                { name: "UID", value: uid, inline: false },
                 { name: "Pack / Vehicle", value: pack || "Not Provided", inline: true },
                 { name: "Amount", value: amount || "Not Provided", inline: true },
                 { name: "Payment Proof", value: paymentProofFile ? paymentProofFile.name : "Not Provided", inline: false }
@@ -160,5 +158,6 @@ document.getElementById("Customer").addEventListener("submit", function(e) {
 
 </body>
 </html>
+
 
 
